@@ -83,17 +83,15 @@ kr-hiking project : 등산 기록 및 스케쥴링 등.
 - `# git commit -m <커밋 메시지>` : 현재 상태로 커밋을 진행
 - `git remote add [remote-name] <url>` : 원격 저장소를 연결
   - `git remote -v` : 원격 저장소 연결 확인
+- `git branch -m master main` : git init의 경우 브랜치명을 master를 생성하는 경우도 있어, main으로 명칭 변경.
 - `git push --force --set-upstream [remote-name] main` : 현재 상태를 원격저장소 main에 적용
 ```
 
 ```markdown
 `cd [project top folder]` : go to project top folder (Don’t forget to navigate to your project top folder!)
-
-- @폴더 구성하기 mkdir api? server?@
-- `npm init` : 해당 경로에서 node를 사용할 수 있도록 함..?
-- `npm -i express` : express 모듈 설치 (rest api 서버 구축을 간편하게 도와줌.)
-- `npm -i nodemon -D` : nodemon 모듈 설치 (소스파일 수정 시 서버가 자동으로 재기동되도록 함.)
-- `npm -i prettier -D -E` : prettier 모듈 설치 (코드 정렬을 강제해서 가독성이 있도록 지원함.)
+`npx create-react-app client` : Quick Start; simple react project from facebook
+`cd client`
+`npm start` : http://localhost:3000/
 ```
 
 ### server
