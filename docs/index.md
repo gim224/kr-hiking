@@ -94,6 +94,12 @@ kr-hiking project : 등산 기록 및 스케쥴링 등.
 `npm start` : http://localhost:3000/
 ```
 
+```markdown
+`cd [project top folder]/client`
+`npm install react-bootstrap bootstrap`
+`npm install --save ag-grid-community ag-grid-react`
+```
+
 ### server
 
 1. Node.js 사용기
