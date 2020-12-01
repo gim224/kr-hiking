@@ -1,33 +1,23 @@
-import logo from "./logo.svg";
+import logo from "./mountain-984083_640.jpg";
 import "./App.css";
 
 import React, { useState, useEffect } from "react";
-import { AgGridColumn, AgGridReact } from "ag-grid-react";
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
+import { AgGridColumn, AgGridReact } from "ag-grid-react";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-alpine.css";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>
+        <img src={logo} alt="logo" />
+      </div>
+      <div></div>
 
       <AgGrid></AgGrid>
       <Bootstrap></Bootstrap>
