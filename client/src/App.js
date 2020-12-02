@@ -1,28 +1,18 @@
 import logo from "./mountain-984083_640.jpg";
-import "./App.css";
 
 import React, { useState, useEffect } from "react";
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Image from "react-bootstrap/Image";
 
 import { AgGridColumn, AgGridReact } from "ag-grid-react";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-alpine.css";
 
 function App() {
-  return (
-    <div className="App">
-      <div>
-        <img src={logo} alt="logo" />
-      </div>
-      <div></div>
-
-      <AgGrid></AgGrid>
-      <Bootstrap></Bootstrap>
-    </div>
-  );
+  return <Bootstrap></Bootstrap>;
 }
 
 function AgGrid() {
@@ -61,6 +51,12 @@ function Bootstrap() {
   return (
     <Container>
       <Row>
+        <Col md="auto">
+          <Image src={logo} alt="logo" fluid />
+        </Col>
+      </Row>
+
+      <Row>
         <Col>1 of 3</Col>
         <Col xs={6}>2 of 3 (wider)</Col>
         <Col>3 of 3</Col>
@@ -70,6 +66,7 @@ function Bootstrap() {
         <Col xs={5}>2 of 3 (wider)</Col>
         <Col>3 of 3</Col>
       </Row>
+      <AgGrid></AgGrid>
     </Container>
   );
 }
