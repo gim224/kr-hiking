@@ -1,6 +1,6 @@
 import logo from "./mountain-984083_640.jpg";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -8,48 +8,110 @@ import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
 
 import { AgGridColumn, AgGridReact } from "ag-grid-react";
+
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-alpine.css";
 
-function App() {
-  return <Bootstrap></Bootstrap>;
-}
+import Header from "./components/Header.js";
 
-function AgGrid() {
+const App = () => {
+  return <Bootstrap></Bootstrap>;
+};
+
+const AgGrid = () => {
   const [gridApi, setGridApi] = useState(null);
   const [gridColumnApi, setGridColumnApi] = useState(null);
+  const [rowData, setRowData] = useState(null);
 
-  /*
-  const [rowData, setRowData] = useState([
-    { make: "Toyota", model: "Celica", price: 35000 },
-    { make: "Ford", model: "Mondeo", price: 32000 },
-    { make: "Porsche", model: "Boxter", price: 72000 },
-  ]);
-  */
+  const onGridReady = (params) => {
+    setGridApi(params.api);
+    setGridColumnApi(params.columnApi);
 
-  const [rowData, setRowData] = useState([]);
+    const httpRequest = new XMLHttpRequest();
+    const updateData = (data) => {
+      setRowData(data);
+    };
 
-  useEffect(() => {
-    fetch(
-      "https://raw.githubusercontent.com/ag-grid/ag-grid/master/grid-packages/ag-grid-docs/src/sample-data/rowData.json"
-    )
-      .then((result) => result.json())
-      .then((rowData) => setRowData(rowData));
-  }, []);
+    httpRequest.open(
+      "GET",
+      "https://raw.githubusercontent.com/ag-grid/ag-grid/master/grid-packages/ag-grid-docs/src/olympicWinnersSmall.json"
+    );
+    httpRequest.send();
+    httpRequest.onreadystatechange = () => {
+      if (httpRequest.readyState === 4 && httpRequest.status === 200) {
+        updateData(JSON.parse(httpRequest.responseText));
+      }
+    };
+  };
+
+  const sizeToFit = () => {
+    gridApi.sizeColumnsToFit();
+  };
+
+  const autoSizeAll = (skipHeader) => {
+    var allColumnIds = [];
+    gridColumnApi.getAllColumns().forEach(function (column) {
+      allColumnIds.push(column.colId);
+    });
+    gridColumnApi.autoSizeColumns(allColumnIds, skipHeader);
+  };
 
   return (
-    <div className="ag-theme-alpine" style={{ height: 400, widht: 1000 }}>
-      <AgGridReact rowData={rowData}>
-        <AgGridColumn field="make"></AgGridColumn>
-        <AgGridColumn field="model"></AgGridColumn>
-        <AgGridColumn field="price"></AgGridColumn>
-      </AgGridReact>
+    <div style={{ width: "100%", height: "400px" }}>
+      <div className="outer-div">
+        <div className="button-bar">
+          <button onClick={() => sizeToFit()}>Size to Fit</button>
+          <button onClick={() => autoSizeAll(false)}>Auto-Size All</button>
+          <button onClick={() => autoSizeAll(true)}>
+            Auto-Size All (Skip Header)
+          </button>
+        </div>
+        <div className="grid-wrapper">
+          <div
+            id="myGrid"
+            style={{
+              height: "400px",
+              width: "100%",
+            }}
+            className="ag-theme-alpine"
+          >
+            <AgGridReact
+              defaultColDef={{ resizable: true }}
+              rowData={rowData}
+              onGridReady={onGridReady}
+            >
+              <AgGridColumn
+                field="athlete"
+                width={150}
+                suppressSizeToFit={true}
+              />
+              <AgGridColumn
+                field="age"
+                headerName="Age of Athlete"
+                width={90}
+                minWidth={50}
+                maxWidth={150}
+              />
+              <AgGridColumn field="country" width={120} />
+              <AgGridColumn field="year" width={90} />
+              <AgGridColumn field="date" width={110} />
+              <AgGridColumn field="sport" width={110} />
+              <AgGridColumn field="gold" width={100} />
+              <AgGridColumn field="silver" width={100} />
+              <AgGridColumn field="bronze" width={100} />
+              <AgGridColumn field="total" width={100} />
+            </AgGridReact>
+          </div>
+        </div>
+      </div>
     </div>
   );
-}
-function Bootstrap() {
+};
+
+const Bootstrap = () => {
   return (
-    <Container>
+    <Container fluid>
+      <Header></Header>
       <Row>
         <Col md="auto">
           <Image src={logo} alt="logo" fluid />
@@ -57,18 +119,13 @@ function Bootstrap() {
       </Row>
 
       <Row>
-        <Col>1 of 3</Col>
-        <Col xs={6}>2 of 3 (wider)</Col>
-        <Col>3 of 3</Col>
-      </Row>
-      <Row>
-        <Col>1 of 3</Col>
-        <Col xs={5}>2 of 3 (wider)</Col>
-        <Col>3 of 3</Col>
+        <Col md={2}>1 of 3</Col>
+        <Col>2 of 3</Col>
+        <Col md={2}>3 of 3</Col>
       </Row>
       <AgGrid></AgGrid>
     </Container>
   );
-}
+};
 
 export default App;
