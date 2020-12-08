@@ -4,10 +4,13 @@ import { useHistory } from "react-dom";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import Form from "react-bootstrap/Form";
+import FormControl from "react-bootstrap/FormControl";
+import Button from "react-bootstrap/Button";
 
 const Header = () => {
   return (
-    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" sticky="top">
       <Navbar.Brand href="#home">GT(IMAGE)</Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
@@ -27,7 +30,11 @@ const Header = () => {
           </NavDropdown>
         </Nav>
         <Nav>
-          <Nav.Link href="#deets">🔍Search</Nav.Link>
+          <Form inline>
+            <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+            <Button variant="outline-light">🔍Search</Button>
+          </Form>
+
           <Nav.Link eventKey={2} href="#memes">
             Github
           </Nav.Link>
